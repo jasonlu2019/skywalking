@@ -7,6 +7,7 @@ Right now, SkyWalking supports following dynamic configurations.
 | Config Key | Value Description | Value Format Example |
 |:----:|:----:|:----:|
 |receiver-trace.default.slowDBAccessThreshold| Thresholds of slow Database statement, override `receiver-trace/default/slowDBAccessThreshold` of `applciation.yml`. | default:200,mongodb:50|
+|receiver-trace.default.uninstrumentedGateways| The uninstrumented gateways, override `gateways.yml`. | not set |
 
 
 This feature depends on upstream service, so it is **OFF** as default.
@@ -78,6 +79,19 @@ configuration:
     #Retry Policy
     baseSleepTimeMs: 1000 # initial amount of time to wait between retries
     maxRetries: 3 # max number of times to retry
+```
+
+## Dynamic Configuration Etcd Implementation
+
+[Etcd](https://github.com/etcd-io/etcd) is also supported as DCC(Dynamic Configuration Center), to use it, please configure as follows:
+
+```yaml
+configuration:
+  etcd:
+    period : 60 # Unit seconds, sync period. Default fetch every 60 seconds.
+    group :  'skywalking'
+    serverAddr: localhost:2379
+    clusterName: "default"
 ```
 
 ## 3rd party Configuration Center
